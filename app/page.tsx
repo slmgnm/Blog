@@ -1,9 +1,10 @@
-import Image from 'next/image'
-
+'use client'
+import AddPost from "../app/components/AddPost"
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col  justify-between p-24">
-      <h1 className='text-large'>Hello Next</h1>
+    <main className="">
+      {/* <h1 className="text-large">Hello Next</h1> */}
+      <AddPost/>
     </main>
-  )
+  );
 }
