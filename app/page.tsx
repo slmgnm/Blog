@@ -15,15 +15,15 @@ export default function Home() {
     queryKey: ["posts"],
   });
   if (isLoading) return "loading";
-  if (error) return error;
-  console.log(data);
+  if (error) return <div>Error: {error.message}</div>;
+
+  console.log("data in page app", data);
   return (
     <main className="">
-      {/* <h1 className="text-large">Hello Next</h1> */}
       <AddPost />
       {data?.map((post) => (
         <Post
-          Comment={post.Comment}
+          comments={post.comments}
           key={post.id}
           name={post.user.name}
           avatar={post.user.image}

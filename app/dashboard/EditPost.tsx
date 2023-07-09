@@ -1,24 +1,24 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { useState } from "react"
-import Toggle from "./Toggle"
-import { useMutation, useQueryClient } from "react-query"
-import toast from "react-hot-toast"
-import axios from "axios"
-import { motion } from "framer-motion"
+import Image from "next/image";
+import { useState } from "react";
+import Toggle from "../components/Toggle";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { motion } from "framer-motion";
 
 type EditProps = {
-  id: string
-  avatar: string
-  name: string
-  title: string
+  id: string;
+  avatar: string;
+  name: string;
+  title: string;
   comments?: {
-    id: string
-    postId: string
-    userId: string
-  }[]
-}
+    id: string;
+    postId: string;
+    userId: string;
+  }[];
+};
 
 export default function EditPost({
   avatar,
@@ -27,29 +27,30 @@ export default function EditPost({
   comments,
   id,
 }: EditProps) {
-  const [toggle, setToggle] = useState(false)
-  const queryClient = useQueryClient()
-  let deleteToastID: string
+  const [toggle, setToggle] = useState(false);
+  const queryClient = useQueryClient();
+  let deleteToastID: string;
 
   const { mutate } = useMutation(
     async (id: string) =>
       await axios.delete("/api/posts/deletePost", { data: id }),
     {
       onError: (error) => {
-        console.log(error)
+        console.log(error);
+        toast.error("Error deleting post", { id: deleteToastID });
       },
       onSuccess: (data) => {
-        console.log(data)
-        queryClient.invalidateQueries("getAuthPosts")
-        toast.success("Post has been deleted.", { id: deleteToastID })
+        console.log(data);
+        queryClient.invalidateQueries(["auth-posts"]);
+        toast.success("Post has been deleted.", { id: deleteToastID });
       },
     }
-  )
+  );
 
   const deletePost = () => {
-    deleteToastID = toast.loading("Deleting your post.", { id: deleteToastID })
-    mutate(id)
-  }
+    deleteToastID = toast.loading("Deleting your post.", { id: deleteToastID });
+    mutate(id);
+  };
 
   return (
     <>
@@ -72,8 +73,8 @@ export default function EditPost({
           </p>
           <button
             onClick={(e) => {
-              e.stopPropagation()
-              setToggle(true)
+              e.stopPropagation();
+              setToggle(true);
             }}
             className="text-sm font-bold text-red-500"
           >
@@ -83,5 +84,5 @@ export default function EditPost({
       </motion.div>
       {toggle && <Toggle deletePost={deletePost} setToggle={setToggle} />}
     </>
-  )
+  );
 }
