@@ -13,20 +13,20 @@ const fetchAuthPosts = async () => {
 export default function MyPosts(): JSX.Element {
   const { data, isLoading } = useQuery<AuthPosts>({
     queryFn: fetchAuthPosts,
-    queryKey: ["auth-posts"],
+    queryKey: ["getAuthPosts"],
   });
   if (isLoading) return <h1>Posts are loading...</h1>;
-  console.log("data in myPosts", data?.posts);
+  console.log("data in myPosts", data);
   return (
     <div>
-      {data?.posts?.map((post) => (
+      {data?.posts.map((post) => (
         <EditPost
           id={post.id}
           key={post.id}
           title={post.title}
+          comments={post.comments}
           avatar={data.image}
           name={data.name}
-          comments={post.comments}
         />
       ))}
     </div>

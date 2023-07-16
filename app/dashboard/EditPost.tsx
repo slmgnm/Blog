@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Toggle from "../components/Toggle";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -29,7 +29,7 @@ export default function EditPost({
 }: EditProps) {
   const [toggle, setToggle] = useState(false);
   const queryClient = useQueryClient();
-  let deleteToastID: string;
+  const deleteToastIDRef = useRef<string>("");
 
   const { mutate } = useMutation(
     async (id: string) =>
@@ -37,18 +37,20 @@ export default function EditPost({
     {
       onError: (error) => {
         console.log(error);
-        toast.error("Error deleting post", { id: deleteToastID });
       },
       onSuccess: (data) => {
-        console.log(data);
-        queryClient.invalidateQueries(["auth-posts"]);
-        toast.success("Post has been deleted.", { id: deleteToastID });
+        queryClient.invalidateQueries(["getAuthPosts"]);
+        toast.success("Post has been deleted.", {
+          id: deleteToastIDRef.current,
+        });
       },
     }
   );
-
   const deletePost = () => {
-    deleteToastID = toast.loading("Deleting your post.", { id: deleteToastID });
+    deleteToastIDRef.current = toast.loading("Deleting your post.", {
+      id: deleteToastIDRef.current,
+    });
+    console.log("id in EditPost", id);
     mutate(id);
   };
 
