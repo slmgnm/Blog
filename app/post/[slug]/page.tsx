@@ -33,8 +33,10 @@ export default function PostDetail(url: URL) {
         avatar={data?.user.image}
         postTitle={data?.title}
         comments={data?.comments}
+        likes={data?.likes}
       />
       <AddComment id={data?.id} />
+      
       {data?.comments?.map((comment) => (
         <motion.div
           animate={{ opacity: 1, scale: 1 }}

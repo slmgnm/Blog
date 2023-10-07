@@ -18,6 +18,7 @@ export default async function handler(
           createdAt: "desc",
         },
       });
+      console.log("result in getPosts",result);
       res.status(200).json(result);
     } catch (error) {
       res.status(403).json({ err: "Error fetching posts" });

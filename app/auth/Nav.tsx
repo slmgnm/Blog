@@ -3,13 +3,23 @@ import Login from "./Login";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../pages/api/auth/[...nextauth]";
 import Logged from "./Logged";
+import Image from 'next/image';
+import Logo from "../../public/logo.svg"
+
+
 export default async function Nav() {
   const session = await getServerSession(authOptions);
-  console.log("session", session);
+  // console.log("session", session);
   return (
     <nav className="flex justify-between items-center py-8">
+    
       <Link href={"/"}>
-        <h1 className="font-bold text-lg">Home</h1>
+        {/* <h1 className="font-bold text-lg">Home </h1> */}
+        <div className="">
+        <Logo
+        />
+        
+        </div>
       </Link>
       <ul className="flex items-center gap-6">
         {!session?.user && <Login />}

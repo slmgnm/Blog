@@ -2,7 +2,9 @@ import "./globals.css";
 import { Roboto } from "next/font/google";
 import Nav from "./auth/Nav";
 import QueryWrapper from "./auth/QueryWrapper";
-
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+config.autoAddCss = false;
 
 const roboto = Roboto({
   subsets: ["latin"],

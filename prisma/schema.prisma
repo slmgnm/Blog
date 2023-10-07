@@ -31,6 +31,7 @@ model Post {
   userId    String
   user      User      @relation(fields: [userId], references: [id])
   comments  Comment[]
+  likes     Int       @default(0) 
 }
 
 model Comment {
@@ -42,6 +43,9 @@ model Comment {
   userId    String
   createdAt DateTime @default(now())
 }
+
+
+
 
 model Account {
   id                String  @id @default(cuid())

@@ -2,6 +2,7 @@ export type PostType = {
   id: string;
   title: string;
   updatedAt?: string;
+  likes:boolean;
   user: {
     email: string;
     id: string;
