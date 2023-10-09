@@ -4,6 +4,8 @@ import AddPost from "../app/components/AddPost";
 import { useQuery } from "@tanstack/react-query";
 import Post from "./components/Post";
 import { PostsType } from "./types/posts";
+import {Suspense} from "react"
+import Loading from "../app/loading"
 const allPosts = async () => {
   const response = await axios.get("/api/posts/getPosts");
   return response.data;
@@ -14,13 +16,14 @@ export default function Home() {
     queryFn: allPosts,
     queryKey: ["posts"],
   });
-  if (isLoading) return "loading";
+  if (isLoading) return  <Loading/>;
   if (error) return <div>Error: {error.message}</div>;
 
-  console.log("data in page app", data);
+  // console.log("data in page app", data);
   return (
     <main className="">
       <AddPost />
+      <Suspense fallback= {<Loading/>}>
       {data?.map((post) => (
         <Post
           comments={post.comments}
@@ -30,7 +33,8 @@ export default function Home() {
           postTitle={post.title}
           id={post.id}
         />
-      ))}
+        ))}
+        </Suspense>
     </main>
   );
 }

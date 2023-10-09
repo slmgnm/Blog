@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
 import { motion } from "framer-motion";
-
+// import Loading from "../../../public/loading.svg"
 type URL = {
   params: {
     slug: string;
@@ -23,8 +23,8 @@ export default function PostDetail(url: URL) {
     queryFn: () => fetchDetails(url.params.slug),
   });
 
-  if (isLoading) return "Loading...";
-  console.log("data from detailed post", data);
+  // if (isLoading) return <Loading/>;
+  // console.log("data from detailed post", data);
   return (
     <div>
       <Post

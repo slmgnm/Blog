@@ -36,7 +36,7 @@ export default function EditPost({
       await axios.delete("/api/posts/deletePost", { data: id }),
     {
       onError: (error) => {
-        console.log(error);
+        // console.log(error);
       },
       onSuccess: (data) => {
         queryClient.invalidateQueries(["getAuthPosts"]);
@@ -50,7 +50,7 @@ export default function EditPost({
     deleteToastIDRef.current = toast.loading("Deleting your post.", {
       id: deleteToastIDRef.current,
     });
-    console.log("id in EditPost", id);
+    // console.log("id in EditPost", id);
     mutate(id);
   };
 

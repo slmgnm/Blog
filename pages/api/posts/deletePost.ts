@@ -14,7 +14,7 @@ export default async function handler(
       return res.status(401).json({ message: "Please signin to edit a post." });
     }
     const postId = req.body;
-    console.log("postId in deletePost.ts", postId);
+    // console.log("postId in deletePost.ts", postId);
     try {
       const result = await prisma.post.delete({
         where: {

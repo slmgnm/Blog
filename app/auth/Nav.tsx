@@ -3,7 +3,7 @@ import Login from "./Login";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../pages/api/auth/[...nextauth]";
 import Logged from "./Logged";
-import Image from 'next/image';
+
 import Logo from "../../public/logo.svg"
 
 

@@ -16,12 +16,12 @@ export default async function handler(
         .json({ message: "Please sing in to make a new post" });
     // console.log("req.body in add post posts", req.body);
     const title: string = req.body.title;
-    console.log("title", title);
+    // console.log("title", title);
     //get User
     const prismaUser = await prisma.user.findUnique({
       where: { email: session?.user?.email },
     });
-    console.log("prismaUser", prismaUser);
+    // console.log("prismaUser", prismaUser);
 
     if (title.length > 300) {
       return res.status(403).json({ message: "Please write a shorter post" });

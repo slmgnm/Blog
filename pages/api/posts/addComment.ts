@@ -24,7 +24,7 @@ export default async function handler(
 
   if (req.method === "POST") {
     const { title, postId } = req.body.data;
-    console.log(title, postId);
+    // console.log(title, postId);
     if (!title.length) {
       return res.status(401).json({ message: "Please enter some text" });
     }
