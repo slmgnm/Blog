@@ -19,10 +19,12 @@ export default async function handler(
     // console.log("title", title);
     //get User
     const prismaUser = await prisma.user.findUnique({
-      where: { email: session?.user?.email },
+      where: { email: session?.user?.email || "" },
     });
     // console.log("prismaUser", prismaUser);
-
+    if (!prismaUser) {
+      return res.status(403).json({ message: "User not found" });
+    }
     if (title.length > 300) {
       return res.status(403).json({ message: "Please write a shorter post" });
     }
@@ -33,7 +35,7 @@ export default async function handler(
     //create a post
     try {
       const result = await prisma.post.create({
-        data: { title, userId: prismaUser.id },
+        data: { title, userId: prismaUser.id  },
       });
       res.status(200).json(result);
     } catch (error) {
