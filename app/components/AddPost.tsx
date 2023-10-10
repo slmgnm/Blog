@@ -49,7 +49,7 @@ export default function CreatePost() {
           onChange={(e) => setTitle(e.target.value)}
           name="title"
           value={title}
-          placeholder="What is the title"
+          placeholder="What is on your mind?"
         ></textarea>
         <div className=" flex items-center justify-between gap-2">
           <p
