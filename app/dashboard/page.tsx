@@ -9,7 +9,7 @@ export default async function Dashboard() {
     redirect("/api/auth/signin");
   }
   return (
-    <main>
+    <main className="">
       <h1 className="text-2xl font-bold">Welcome back {session?.user?.name}</h1>
       <MyPosts />
     </main>
