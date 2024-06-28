@@ -18,12 +18,17 @@ export default async function handler(
     const title: string = req.body.title;
    
     //get User
-    const prismaUser = await prisma.user.findUnique({
-      where: { email: session?.user?.email || "" },
+    let prismaUser = await prisma.user.findUnique({
+      where: { email: session?.user?.email ?? "" },
     });
     
     if (!prismaUser) {
-      return res.status(403).json({ message: "User not found" });
+      prismaUser = await prisma.user.create({
+        data: {
+          name: session?.user?.name ?? "",
+          email: session?.user?.email ?? "",
+        },
+      });
     }
     if (title.length > 300) {
       return res.status(403).json({ message: "Please write a shorter post" });
