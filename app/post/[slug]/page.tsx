@@ -23,7 +23,6 @@ export default function PostDetail(url: URL) {
     queryFn: () => fetchDetails(url.params.slug),
   });
 
-
   return (
     <div>
       <Post
@@ -35,7 +34,7 @@ export default function PostDetail(url: URL) {
         likes={data?.likes}
       />
       <AddComment id={data?.id} />
-      
+
       {data?.comments?.map((comment) => (
         <motion.div
           animate={{ opacity: 1, scale: 1 }}
@@ -45,12 +44,15 @@ export default function PostDetail(url: URL) {
           key={comment.id}
         >
           <div className="flex items-center gap-2">
-            <Image
-              width={24}
-              height={24}
-              src={comment.user?.image}
-              alt="avatar"
-            />
+            {comment.user?.image && (
+              <Image
+                width={24}
+                height={24}
+                src={comment.user?.image}
+                alt="avatar"
+              />
+            )}
+
             <h3 className="font-bold">{comment?.user?.name}</h3>
             <h2 className="text-sm">{comment.createdAt}</h2>
           </div>

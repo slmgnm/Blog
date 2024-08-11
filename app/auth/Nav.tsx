@@ -4,21 +4,17 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../pages/api/auth/[...nextauth]";
 import Logged from "./Logged";
 
-import Logo from "../../public/logo.svg"
-
+import Logo from "../../public/logo.svg";
 
 export default async function Nav() {
   const session = await getServerSession(authOptions);
   // console.log("session", session);
   return (
     <nav className="flex justify-between items-center py-8">
-    
       <Link href={"/"}>
         {/* <h1 className="font-bold text-lg">Home </h1> */}
         <div className="">
-        <Logo
-        />
-        
+          <Logo />
         </div>
       </Link>
       <ul className="flex items-center gap-6">

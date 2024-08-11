@@ -19,14 +19,16 @@ export default function Logged({ image }: User) {
         href="/dashboard"
       >
         <div className="flex flex-col items-center">
-          <Image
-            width={64}
-            height={64}
-            src={image}
-            className="w-14 rounded-full"
-            alt=""
-            priority
-          />
+          {image && (
+            <Image
+              width={64}
+              height={64}
+              src={image}
+              className="w-14 rounded-full"
+              alt=""
+              priority
+            />
+          )}
           <h4>Dashboard</h4>
         </div>
       </Link>
