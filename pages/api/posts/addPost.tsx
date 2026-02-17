@@ -14,17 +14,17 @@ export default async function handler(
       return res
         .status(401)
         .json({ message: "Please sing in to make a new post" });
-   
+
     const title: string = req.body.title;
-   
+
     //get User
     const prismaUser = await prisma.user.findUnique({
       where: { email: session?.user?.email || "" },
     });
-    
+
     if (!prismaUser) {
       return res.status(403).json({ message: "User not found" });
-n    }
+    }
     if (title.length > 300) {
       return res.status(403).json({ message: "Please write a shorter post" });
     }
@@ -35,7 +35,7 @@ n    }
     //create a post
     try {
       const result = await prisma.post.create({
-        data: { title, userId: prismaUser.id  },
+        data: { title, userId: prismaUser.id },
       });
       res.status(200).json(result);
     } catch (error) {
