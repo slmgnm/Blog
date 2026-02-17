@@ -19,16 +19,20 @@ export default function MyPosts(): JSX.Element {
   // console.log("data in myPosts", data);
   return (
     <div>
-      {data?.posts.map((post) => (
-        <EditPost
-          id={post.id}
-          key={post.id}
-          title={post.title}
-          comments={post.comments}
-          avatar={data.image}
-          name={data.name}
-        />
-      ))}
+      {data?.posts && data.posts.length === 0 ? (
+        <p className="text-center text-gray-500 py-8">You haven&apos;t created any posts yet.</p>
+      ) : (
+        data?.posts.map((post) => (
+          <EditPost
+            id={post.id}
+            key={post.id}
+            title={post.title}
+            comments={post.comments}
+            avatar={data.image}
+            name={data.name}
+          />
+        ))
+      )}
     </div>
   );
 }

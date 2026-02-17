@@ -13,8 +13,7 @@ export default async function handler(
   }
 
   if (req.method === "PUT") {
-    const postId = req.body.data;
-    // console.log("postId in toggleLike", postId);
+    const { postId, liked } = req.body;
 
     try {
       const currentPost = await prisma.post.findUnique({
@@ -30,10 +29,10 @@ export default async function handler(
         return res.status(404).json({ error: "Post not found" });
       }
 
-      // Toggle the like status based on the current state
-      const updatedLikes = currentPost.likes + 1;
+      const updatedLikes = liked
+        ? currentPost.likes + 1
+        : Math.max(0, currentPost.likes - 1);
 
-      // Update the post with the new likes count
       const updatedPost = await prisma.post.update({
         where: {
           id: postId,
@@ -43,7 +42,6 @@ export default async function handler(
         },
       });
 
-      // console.log(updatedLikes);
       res.status(200).json(updatedPost);
     } catch (err) {
       res.status(500).json({ error: "Error occurred while toggling the like status" });

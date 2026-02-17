@@ -28,6 +28,9 @@ export default async function handler(
     if (!title.length) {
       return res.status(401).json({ message: "Please enter some text" });
     }
+    if (title.length > 300) {
+      return res.status(400).json({ message: "Comment must be 300 characters or less." });
+    }
     try {
       const result = await prisma.comment.create({
         data: {
